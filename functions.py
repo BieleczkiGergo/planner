@@ -26,15 +26,16 @@ def rangeAND(range1, range2):
     stateU = False
     rangeU = activity()
     going = True
+    ct = 0
     while going:
         if bool(range1):
             if bool(range2):
                 if range1.events[0] < range2.events[0]:
-                    range1.events.pop(0)
+                    ct = range1.events.pop(0)
                     state1 = not state1
 
                 elif range2.events[0] < range1.events[0]:
-                    range2.events.pop(0)
+                    ct = range2.events.pop(0)
                     state2 = not state2
 
                 else:
@@ -42,6 +43,7 @@ def rangeAND(range1, range2):
 
         if stateU != state1 and state2:
             stateU = not stateU
+            rangeU.events.append(ct)
 
 
     return rangeU
