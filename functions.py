@@ -28,7 +28,21 @@ def rangeAND(range1, range2):
     going = True
     while going:
         if bool(range1):
-            pass
+            if bool(range2):
+                if range1.events[0] < range2.events[0]:
+                    range1.events.pop(0)
+                    state1 = not state1
+
+                elif range2.events[0] < range1.events[0]:
+                    range2.events.pop(0)
+                    state2 = not state2
+
+                else:
+                    pass
+
+        if stateU != state1 and state2:
+            stateU = not stateU
+
 
     return rangeU
 
