@@ -27,7 +27,9 @@ class rangeList:
         pass
 
 
-raw = "2-4-5-12-53"
-list1 = rangeList(raw=raw)
-list2 = rangeList(raw=raw)
-print(list)
+raw1 = "2-4-5-12-53"
+raw2 = "1-4-13-33-44-51"
+list1 = rangeList(raw=raw1)
+list2 = rangeList(raw=raw2)
+print(list1)
+print(list2)
