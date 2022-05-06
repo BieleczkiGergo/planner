@@ -1,8 +1,8 @@
 
-#This file should be compiled for performance
+#This file should be compiled for performance reasons
 
 class rangeList:
-    values = 0
+    values = []
 
     """def read(self, raw):
         self.values = raw.split('-')
@@ -24,7 +24,25 @@ class rangeList:
         return value
 
     def __and__(self, other):
-        pass
+        result = []
+        stamp = 0
+        temp = False
+        state = False
+        stateA = False
+        stateB = False
+        while bool(self.values) and bool(other.values):
+            if self.values[0] < other.values[0]:
+                stamp = self.values.pop(0)
+                stateA = not stateA
+            else:
+                stamp = other.values.pop(0)
+                stateB = not stateB
+            temp = stateA and stateB
+            if temp != state:
+                result.append(stamp)
+
+        return result
+
 
 
 raw1 = "2-4-5-12-53"
@@ -33,3 +51,4 @@ list1 = rangeList(raw=raw1)
 list2 = rangeList(raw=raw2)
 print(list1)
 print(list2)
+print(list1 and list2)
