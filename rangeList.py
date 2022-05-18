@@ -24,22 +24,24 @@ class rangeList:
         return value
 
     def __and__(self, other):
-        result = []
+        print("got to the function")
+        result = rangeList
         stamp = 0
-        temp = False
         state = False
         stateA = False
         stateB = False
         while bool(self.values) and bool(other.values):
-            if self.values[0] < other.values[0]:
-                stamp = self.values.pop(0)
+            print(self, other)
+            if self.values[0] > other.values:
                 stateA = not stateA
+                stamp = self.values.pop(0)
             else:
-                stamp = other.values.pop(0)
                 stateB = not stateB
-            temp = stateA and stateB
-            if temp != state:
-                result.append(stamp)
+                stamp = other.values.pop(0)
+
+            if (stateA and stateB) != state:
+                state = not state
+                result.values.append(stamp)
 
         return result
 
@@ -49,6 +51,6 @@ raw1 = "2-4-5-12-53"
 raw2 = "1-4-13-33-44-51"
 list1 = rangeList(raw=raw1)
 list2 = rangeList(raw=raw2)
-print(list1)
-print(list2)
-print(list1 and list2)
+print("  1: ", list1)
+print("  2: ", list2)
+print("AND: ", list1 and list2)
