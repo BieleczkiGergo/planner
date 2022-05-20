@@ -10,10 +10,13 @@ class rangeList:
             self.values[i] = int(self.values[i])"""
 
     def __init__(self, raw):
-        self.values = raw.split('-')
+        self.values = raw.split("-")
         for i in range(len(self.values)):
-            if type(self.values[i]) == int:
+            try:
                 self.values[i] = int(self.values[i])
+            except:
+                self.values = self.values[0:i]
+                break
 
     def __repr__(self):
         state = False
@@ -32,22 +35,44 @@ class rangeList:
         stateB = False
         i = 0
         j = 0
-        while i<len(self.values) and j<len(other.values):
+        while i < len(self.values) and j < len(other.values):
             if self.values[i] < other.values[j]:
                 stateA = not stateA
                 stamp = self.values[i]
                 i += 1
-
             else:
                 stateB = not stateB
                 stamp = other.values[j]
                 j += 1
 
             if (stateA and stateB) != state:
+                not state
+                result += f"{stamp}-"
+
+        return rangeList(raw=result)
+
+    def __or__(self, other):
+        result = ""
+        stamp = 0
+        state = False
+        stateA = False
+        stateB = False
+        i = 0
+        j = 0
+        while i < len(self.values) and j < len(other.values):
+            if self.values[i] < other.values[j]:
+                stateA = not stateA
+                stamp = self.values[i]
+                i += 1
+            else:
+                stateB = not stateB
+                stamp = other.values[j]
+                j += 1
+
+            if (stateA or stateB) != state:
                 state = not state
                 result += f"{stamp}-"
 
-        print(result)
         return rangeList(raw=result)
 
 
@@ -56,7 +81,7 @@ raw1 = "2-4-5-12-53"
 raw2 = "1-4-13-33-44-51"
 list1 = rangeList(raw=raw1)
 list2 = rangeList(raw=raw2)
-anded = list1 & list2
 print("  1: ", list1)
 print("  2: ", list2)
-print("AND: ", anded)
+print("AND: ", list1 & list2)
+print(" OR: ", list1 | list2)
