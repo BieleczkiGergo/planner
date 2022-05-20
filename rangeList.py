@@ -12,7 +12,8 @@ class rangeList:
     def __init__(self, raw):
         self.values = raw.split('-')
         for i in range(len(self.values)):
-            self.values[i] = int(self.values[i])
+            if type(self.values[i]) == int:
+                self.values[i] = int(self.values[i])
 
     def __repr__(self):
         state = False
@@ -24,13 +25,30 @@ class rangeList:
         return value
 
     def __and__(self, other):
-        result = rangeList
+        result = ""
         stamp = 0
         state = False
         stateA = False
         stateB = False
         i = 0
         j = 0
+        while i<len(self.values) and j<len(other.values):
+            if self.values[i] < other.values[j]:
+                stateA = not stateA
+                stamp = self.values[i]
+                i += 1
+
+            else:
+                stateB = not stateB
+                stamp = other.values[j]
+                j += 1
+
+            if (stateA and stateB) != state:
+                state = not state
+                result += f"{stamp}-"
+
+        print(result)
+        return rangeList(raw=result)
 
 
 
